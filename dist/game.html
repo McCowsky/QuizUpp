@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800;900&family=Raleway:wght@400;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./output.css">
+    <script src="./js/game.js" defer></script>
+    <title>QuizUpp play</title>
+</head>
+
+<body class="font-poppins bg-[#E0FBFC] text-[#2E1760]">
+
+    <div class=" w-full h-[100vh] ">
+        <main class="mx-4">
+            <div class="h-[100vh] flex items-center animate-spin" id="loader">
+                <div class="w-20 h-20 rounded-full border-8 border-transparent border-t-[#FFC857] my-0 mx-auto ">
+                </div>
+            </div>
+
+            <div class="flex flex-col justify-evenly sm:justify-center items-center h-[100vh] relative w-full mx-auto my-0 hidden"
+                id="game">
+
+
+                <h1 class="text-4xl sm:text-7xl font-poppins font-bold pb-12 z-10 pt-4">Quiz<sup
+                        class="text-[#FFC857] text-xl sm:text-4xl">Upp</sup>
+                </h1>
+
+                <div class="flex justify-center gap-20">
+                    <div class="flex flex-col items-center text-xl font-bold">
+                        <h3>Question</h3>
+                        <h4 id="questionCounterBox"></h4>
+                    </div>
+                    <div class="ml-auto flex flex-col items-center text-xl font-bold">
+                        <h3>Score</h3>
+                        <h4 id="scoreBox">0</h4>
+                    </div>
+                </div>
+                <div class="h-12 w-64 mx-auto flex items-center mt-4">
+                    <div class="h-2/3 w-full border-[3px] border-[#3423A6]">
+                        <div class="h-full w-0 bg-[#3423A6] " id="progressBarBox">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col  gap-4 justify-center w-[325px]  pt-10">
+
+                    <h2 class="text-2xl font-bold text-center" id="question"></h2>
+                    <div class="w-full h-12 flex cursor-pointer border-[3px] border-[#3423A6]">
+                        <div class="w-12 bg-[#FFC857] h-full flex justify-center items-center">A</div>
+                        <div class="answer flex justify-center items-center w-full h-full" data-number="1">
+                        </div>
+                    </div>
+                    <div class="w-full h-12 flex cursor-pointer border-[3px] border-[#3423A6]">
+                        <div class="w-12 bg-[#FFC857] h-full flex justify-center items-center">B</div>
+                        <div class="answer flex justify-center items-center  w-full h-full " data-number="2">
+                        </div>
+                    </div>
+                    <div class="w-full h-12 flex cursor-pointer border-[3px] border-[#3423A6]">
+                        <div class="w-12 bg-[#FFC857] h-full flex justify-center items-center">C</div>
+                        <div class="answer flex justify-center items-center  w-full h-full" data-number="3">
+                        </div>
+                    </div>
+                    <div class="w-full h-12 flex cursor-pointer border-[3px] border-[#3423A6]">
+                        <div class="w-12 bg-[#FFC857] h-full flex justify-center items-center">D</div>
+                        <div class="answer flex justify-center items-center  w-full h-full" data-number="4">
+                        </div>
+                    </div>
+
+                </div>
+                <a href="../index.html"
+                    class="mt-4 w-44 h-14 rounded-2xl text-lg font-bold flex justify-center items-center border-[3px] border-[#3423A6]">Home
+                    screen</a>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
