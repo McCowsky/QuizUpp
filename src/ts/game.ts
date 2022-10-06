@@ -17,7 +17,6 @@ const questionCounterBox = document.getElementById(
   "questionCounterBox"
 ) as HTMLDivElement | null;
 const scoreBox = document.getElementById("scoreBox") as HTMLDivElement | null;
-console.log(answerBoxes);
 
 const progressBarBox = document.getElementById(
   "progressBarBox"
@@ -42,7 +41,6 @@ fetch("https://opentdb.com/api.php?amount=10&category=11")
     return res.json();
   })
   .then((loadedQuestions) => {
-    console.log(loadedQuestions.results);
     questions = loadedQuestions.results.map((loadedQuestion: any) => {
       const formattedQuestion: any = {
         question: loadedQuestion.question,
@@ -89,7 +87,6 @@ const getNewQuestion = () => {
 
   if (progressBarBox != null) {
     let progress = (questionCounter / MAX_QUESTION) * 100;
-    console.log(progress);
     progressBarBox.style.width = `${(questionCounter / MAX_QUESTION) * 100}%`;
   }
 
@@ -101,8 +98,10 @@ const getNewQuestion = () => {
   }
 
   answerBoxes.forEach((answerBox) => {
+    answerBox.parentElement!.classList.remove("hidden");
     let answerBoxNumber = answerBox.dataset["number"];
-    answerBox.innerText = currentQuestion["choice" + answerBoxNumber];
+    if (currentQuestion['choice' + answerBoxNumber] === undefined) answerBox.parentElement!.classList.add('hidden');
+    answerBox.innerHTML = currentQuestion["choice" + answerBoxNumber];
   });
 
   availableQuestions.splice(questionIndex, 1);
