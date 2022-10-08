@@ -65,8 +65,8 @@ const getNewQuestion = () => {
     answerBoxes.forEach((answerBox) => {
         answerBox.parentElement.classList.remove("hidden");
         let answerBoxNumber = answerBox.dataset["number"];
-        if (currentQuestion['choice' + answerBoxNumber] === undefined)
-            answerBox.parentElement.classList.add('hidden');
+        if (currentQuestion["choice" + answerBoxNumber] === undefined)
+            answerBox.parentElement.classList.add("hidden");
         answerBox.innerHTML = currentQuestion["choice" + answerBoxNumber];
     });
     availableQuestions.splice(questionIndex, 1);

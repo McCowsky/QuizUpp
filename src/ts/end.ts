@@ -3,7 +3,13 @@ const finalScoreBox = document.getElementById(
   "finalScoreBox"
 ) as HTMLDivElement | null;
 
-const highscores = JSON.parse(localStorage.getItem("highscores") || "[]") || [];
+type Score = {
+  score: string;
+  name: string;
+};
+
+const highscores: Score[] =
+  JSON.parse(localStorage.getItem("highscores") || "[]") || [];
 
 let savedScore = localStorage.getItem("savedScore");
 if (finalScoreBox != null && savedScore != null) {
@@ -14,14 +20,14 @@ const saveScore = (event: Event) => {
   event.preventDefault();
 
   if (username != null) {
-    const score = {
-      score: savedScore,
+    const score: Score = {
+      score: savedScore!,
       name: username.value,
     };
     highscores.push(score);
 
-    highscores.sort((a: any, b: any) => {
-      return b.score - a.score;
+    highscores.sort((a: Score, b: Score) => {
+      return Number(b.score) - Number(a.score);
     });
   }
   highscores.splice(5);

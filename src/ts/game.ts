@@ -1,11 +1,11 @@
-type question = {
+type Question = {
   question: string;
   choice1: string;
   choice2: string;
   choice3: string;
   choice4: string;
   answer: number;
-}[];
+};
 
 const questionBox = document.getElementById(
   "question"
@@ -29,12 +29,12 @@ let currentQuestion: any = {};
 let acceptingAnswers: boolean = false;
 let score: number = 0;
 let questionCounter: number = 0;
-let availableQuestions: question = [];
+let availableQuestions: Question[] = [];
 
 const CORRECT_BONUS: number = 10;
 const MAX_QUESTION: number = 10;
 
-let questions: question = [];
+let questions: Question[] = [];
 
 fetch("https://opentdb.com/api.php?amount=10&category=11")
   .then((res) => {
@@ -100,7 +100,8 @@ const getNewQuestion = () => {
   answerBoxes.forEach((answerBox) => {
     answerBox.parentElement!.classList.remove("hidden");
     let answerBoxNumber = answerBox.dataset["number"];
-    if (currentQuestion['choice' + answerBoxNumber] === undefined) answerBox.parentElement!.classList.add('hidden');
+    if (currentQuestion["choice" + answerBoxNumber] === undefined)
+      answerBox.parentElement!.classList.add("hidden");
     answerBox.innerHTML = currentQuestion["choice" + answerBoxNumber];
   });
 

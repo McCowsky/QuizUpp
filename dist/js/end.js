@@ -15,7 +15,7 @@ const saveScore = (event) => {
         };
         highscores.push(score);
         highscores.sort((a, b) => {
-            return b.score - a.score;
+            return Number(b.score) - Number(a.score);
         });
     }
     highscores.splice(5);
