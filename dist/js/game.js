@@ -14,6 +14,9 @@ let availableQuestions = [];
 const CORRECT_BONUS = 10;
 const MAX_QUESTION = 10;
 let questions = [];
+function isObjKey(key, obj) {
+    return key in obj;
+}
 fetch("https://opentdb.com/api.php?amount=10&category=11")
     .then((res) => {
     return res.json();
@@ -22,12 +25,20 @@ fetch("https://opentdb.com/api.php?amount=10&category=11")
     questions = loadedQuestions.results.map((loadedQuestion) => {
         const formattedQuestion = {
             question: loadedQuestion.question,
+            choice1: "",
+            choice2: "",
+            choice3: "",
+            choice4: "",
+            answer: 0,
         };
         const answerChoices = [...loadedQuestion.incorrect_answers];
         formattedQuestion.answer = Math.floor(Math.random() * 3) + 1;
         answerChoices.splice(formattedQuestion.answer - 1, 0, loadedQuestion.correct_answer);
         answerChoices.forEach((choice, index) => {
-            formattedQuestion["choice" + (index + 1)] = choice;
+            const key = `choice${index + 1}`;
+            if (isObjKey(key, formattedQuestion)) {
+                formattedQuestion[key] = choice;
+            }
         });
         return formattedQuestion;
     });
@@ -65,7 +76,8 @@ const getNewQuestion = () => {
     answerBoxes.forEach((answerBox) => {
         answerBox.parentElement.classList.remove("hidden");
         let answerBoxNumber = answerBox.dataset["number"];
-        if (currentQuestion["choice" + answerBoxNumber] === undefined)
+        if (currentQuestion["choice" + answerBoxNumber] === undefined ||
+            currentQuestion["choice" + answerBoxNumber] === "")
             answerBox.parentElement.classList.add("hidden");
         answerBox.innerHTML = currentQuestion["choice" + answerBoxNumber];
     });

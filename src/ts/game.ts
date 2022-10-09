@@ -7,6 +7,15 @@ type Question = {
   answer: number;
 };
 
+type LoadedQuestion = {
+  category: string;
+  correct_answer: string;
+  difficulty: string;
+  incorrect_answers: string[];
+  question: string;
+  type: string;
+};
+
 const questionBox = document.getElementById(
   "question"
 ) as HTMLDivElement | null;
@@ -36,28 +45,43 @@ const MAX_QUESTION: number = 10;
 
 let questions: Question[] = [];
 
+function isObjKey<T>(key: PropertyKey, obj: T): key is keyof T {
+  return key in obj;
+}
+
 fetch("https://opentdb.com/api.php?amount=10&category=11")
   .then((res) => {
     return res.json();
   })
   .then((loadedQuestions) => {
-    questions = loadedQuestions.results.map((loadedQuestion: any) => {
-      const formattedQuestion: any = {
-        question: loadedQuestion.question,
-      };
+    questions = loadedQuestions.results.map(
+      (loadedQuestion: LoadedQuestion) => {
+        const formattedQuestion: Question = {
+          question: loadedQuestion.question,
+          choice1: "",
+          choice2: "",
+          choice3: "",
+          choice4: "",
+          answer: 0,
+        };
 
-      const answerChoices = [...loadedQuestion.incorrect_answers];
-      formattedQuestion.answer = Math.floor(Math.random() * 3) + 1;
-      answerChoices.splice(
-        formattedQuestion.answer - 1,
-        0,
-        loadedQuestion.correct_answer
-      );
-      answerChoices.forEach((choice, index) => {
-        formattedQuestion["choice" + (index + 1)] = choice;
-      });
-      return formattedQuestion;
-    });
+        const answerChoices = [...loadedQuestion.incorrect_answers];
+        formattedQuestion.answer = Math.floor(Math.random() * 3) + 1;
+        answerChoices.splice(
+          formattedQuestion.answer - 1,
+          0,
+          loadedQuestion.correct_answer
+        );
+
+        answerChoices.forEach((choice, index) => {
+          const key = `choice${index + 1}`;
+          if (isObjKey<Question>(key, formattedQuestion)) {
+            (formattedQuestion[key] as string) = choice;
+          }
+        });
+        return formattedQuestion;
+      }
+    );
 
     startGame();
   })
@@ -92,7 +116,6 @@ const getNewQuestion = () => {
 
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
   currentQuestion = availableQuestions[questionIndex];
-
   if (questionBox != null) {
     questionBox.innerHTML = currentQuestion.question;
   }
@@ -100,7 +123,10 @@ const getNewQuestion = () => {
   answerBoxes.forEach((answerBox) => {
     answerBox.parentElement!.classList.remove("hidden");
     let answerBoxNumber = answerBox.dataset["number"];
-    if (currentQuestion["choice" + answerBoxNumber] === undefined)
+    if (
+      currentQuestion["choice" + answerBoxNumber] === undefined ||
+      currentQuestion["choice" + answerBoxNumber] === ""
+    )
       answerBox.parentElement!.classList.add("hidden");
     answerBox.innerHTML = currentQuestion["choice" + answerBoxNumber];
   });
