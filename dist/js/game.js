@@ -6,7 +6,7 @@ const scoreBox = document.getElementById("scoreBox");
 const progressBarBox = document.getElementById("progressBarBox");
 const gameBox = document.getElementById("game");
 const loaderBox = document.getElementById("loader");
-let currentQuestion = {};
+let currentQuestion = null;
 let acceptingAnswers = false;
 let score = 0;
 let questionCounter = 0;
@@ -76,10 +76,14 @@ const getNewQuestion = () => {
     answerBoxes.forEach((answerBox) => {
         answerBox.parentElement.classList.remove("hidden");
         let answerBoxNumber = answerBox.dataset["number"];
-        if (currentQuestion["choice" + answerBoxNumber] === undefined ||
-            currentQuestion["choice" + answerBoxNumber] === "")
-            answerBox.parentElement.classList.add("hidden");
-        answerBox.innerHTML = currentQuestion["choice" + answerBoxNumber];
+        const key = `choice${answerBoxNumber}`;
+        if (currentQuestion && isObjKey(key, currentQuestion)) {
+            if (currentQuestion[key] === undefined || currentQuestion[key] === "") {
+                answerBox.parentElement.classList.add("hidden");
+            }
+        }
+        if (currentQuestion && isObjKey(key, currentQuestion))
+            answerBox.innerHTML = currentQuestion[key];
     });
     availableQuestions.splice(questionIndex, 1);
     acceptingAnswers = true;
@@ -90,11 +94,22 @@ answerBoxes.forEach((answerBox) => {
             return;
         const selectedChoice = button.target.dataset["number"];
         acceptingAnswers = false;
-        const classToApply = selectedChoice == currentQuestion.answer ? "bg-green-400" : "bg-red-400";
-        if (classToApply === "bg-green-400")
+        const classToApply = selectedChoice == (currentQuestion === null || currentQuestion === void 0 ? void 0 : currentQuestion.answer) ? "bg-green-400" : "bg-red-400";
+        if (classToApply === "bg-green-400") {
             scoreAdd(CORRECT_BONUS);
+        }
+        else {
+            if ((currentQuestion === null || currentQuestion === void 0 ? void 0 : currentQuestion.choice3) != "") {
+                console.log(currentQuestion);
+                console.log((currentQuestion === null || currentQuestion === void 0 ? void 0 : currentQuestion.answer) - 1);
+                answerBoxes[(currentQuestion === null || currentQuestion === void 0 ? void 0 : currentQuestion.answer) - 1].classList.add("bg-yellow-400");
+            }
+        }
         button.target.classList.add(classToApply);
         setTimeout(() => {
+            if ((currentQuestion === null || currentQuestion === void 0 ? void 0 : currentQuestion.choice3) != "") {
+                answerBoxes[(currentQuestion === null || currentQuestion === void 0 ? void 0 : currentQuestion.answer) - 1].classList.remove("bg-yellow-400");
+            }
             button.target.classList.remove(classToApply);
             getNewQuestion();
         }, 1000);

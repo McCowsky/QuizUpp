@@ -19,28 +19,35 @@
 
     <div class=" w-full h-[100vh]">
         <main class="mx-4">
-            <div class="flex flex-col items-center h-[100vh] relative ">
-                <h1 class="text-7xl font-poppins font-bold pb-14 z-10 pt-28">Quiz<sup
+            <div class="flex flex-col items-center justify-center sm:justify-start h-[100vh] ">
+                <h1 class="text-7xl font-poppins font-bold pb-14 z-10 sm:pt-4">Quiz<sup
                         class="text-[#FFC857] text-4xl">Upp</sup>
                 </h1>
-                <h2 class="text-4xl font-bold" id="finalScoreBox">asd</h2>
-                <div class="flex flex-col items-center h-[100vh] justify-center absolute">
+
+                <a href="./game.html"
+                    class="w-44 h-14 mb-8 rounded-2xl  text-lg font-bold flex justify-center items-center border-[3px] border-[#3423A6]">Play
+                    Again</a>
+                <a href="../index.html"
+                    class="w-44 h-14 mb-8 rounded-2xl text-lg font-bold flex justify-center items-center border-[3px] border-[#3423A6]">Home
+                    screen</a>
+
+
+                <div class="flex flex-col items-center  justify-start ">
+
+
                     <form action="" class="flex flex-col items-center">
-                        <small id="errorBox" class="hidden text-red-500 pb-2 text-center"></small>
+
                         <input type="text" placeholder="Your Name"
-                            class="text-center w-44 h-12 mb-8 border-[3px] border-[#3423A6] rounded-2xl" id="username"
+                            class="text-center w-44 h-12  border-[3px] border-[#3423A6] rounded-2xl" id="username"
                             required>
+                        <small id="errorBox" class="hidden text-red-500  pt-2 text-center"></small>
                         <button type="submit"
-                            class="w-44 h-14 mb-8 rounded-2xl text-lg font-bold flex justify-center items-center border-[3px] bg-[#3423A6] text-[#E0FBFC]"
+                            class="w-44 h-14 mt-8 mb-8 rounded-2xl text-base font-bold flex justify-center items-center border-[3px] bg-[#3423A6] text-[#E0FBFC]"
                             onclick="saveScore(event)">Share
                             your score!</button>
+
                     </form>
-                    <a href="./game.html"
-                        class="w-44 h-14 mb-8 rounded-2xl  text-lg font-bold flex justify-center items-center border-[3px] border-[#3423A6]">Play
-                        Again</a>
-                    <a href="../index.html"
-                        class="w-44 h-14 rounded-2xl text-lg font-bold flex justify-center items-center border-[3px] border-[#3423A6]">Home
-                        screen</a>
+                    <h2 class="text-4xl font-bold pb-12" id="finalScoreBox"></h2>
                 </div>
             </div>
         </main>

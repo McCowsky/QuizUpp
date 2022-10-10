@@ -9,7 +9,7 @@ const highscores1: Score[] = JSON.parse(
 if (scoreListBox != null) {
   scoreListBox.innerHTML = highscores1
     .map((element: Score) => {
-      return `<li>${element.name}:${element.score}</li>`;
+      return `<li>${element.name}:    ${element.score}</li>`;
     })
     .join("");
 }

@@ -34,7 +34,7 @@ const progressBarBox = document.getElementById(
 const gameBox = document.getElementById("game") as HTMLDivElement | null;
 const loaderBox = document.getElementById("loader") as HTMLDivElement | null;
 
-let currentQuestion: any = {};
+let currentQuestion: Question | null = null;
 let acceptingAnswers: boolean = false;
 let score: number = 0;
 let questionCounter: number = 0;
@@ -123,12 +123,16 @@ const getNewQuestion = () => {
   answerBoxes.forEach((answerBox) => {
     answerBox.parentElement!.classList.remove("hidden");
     let answerBoxNumber = answerBox.dataset["number"];
-    if (
-      currentQuestion["choice" + answerBoxNumber] === undefined ||
-      currentQuestion["choice" + answerBoxNumber] === ""
-    )
-      answerBox.parentElement!.classList.add("hidden");
-    answerBox.innerHTML = currentQuestion["choice" + answerBoxNumber];
+
+    const key = `choice${answerBoxNumber}`;
+    if (currentQuestion && isObjKey<Question>(key, currentQuestion)) {
+      if (currentQuestion[key] === undefined || currentQuestion[key] === "") {
+        answerBox.parentElement!.classList.add("hidden");
+      }
+    }
+
+    if (currentQuestion && isObjKey<Question>(key, currentQuestion))
+      answerBox.innerHTML = currentQuestion[key] as string;
   });
 
   availableQuestions.splice(questionIndex, 1);
@@ -143,12 +147,28 @@ answerBoxes.forEach((answerBox) => {
     ];
     acceptingAnswers = false;
     const classToApply =
-      selectedChoice == currentQuestion.answer ? "bg-green-400" : "bg-red-400";
+      selectedChoice == currentQuestion?.answer ? "bg-green-400" : "bg-red-400";
 
-    if (classToApply === "bg-green-400") scoreAdd(CORRECT_BONUS);
+    if (classToApply === "bg-green-400") {
+      scoreAdd(CORRECT_BONUS);
+    } else {
+      if (currentQuestion?.choice3 != "") {
+        console.log(currentQuestion);
+        console.log(currentQuestion?.answer! - 1);
+        answerBoxes[currentQuestion?.answer! - 1].classList.add(
+          "bg-yellow-400"
+        );
+      }
+    }
 
     (button.target as HTMLTextAreaElement).classList.add(classToApply);
     setTimeout(() => {
+      if (currentQuestion?.choice3 != "") {
+        answerBoxes[currentQuestion?.answer! - 1].classList.remove(
+          "bg-yellow-400"
+        );
+      }
+
       (button.target as HTMLTextAreaElement).classList.remove(classToApply);
       getNewQuestion();
     }, 1000);
