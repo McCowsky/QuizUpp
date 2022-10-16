@@ -155,9 +155,7 @@ answerBoxes.forEach((answerBox) => {
       if (currentQuestion?.choice3 != "") {
         console.log(currentQuestion);
         console.log(currentQuestion?.answer! - 1);
-        answerBoxes[currentQuestion?.answer! - 1].classList.add(
-          "bg-yellow-400"
-        );
+        answerBoxes[currentQuestion?.answer! - 1].classList.add("bg-[#FFC857]");
       }
     }
 
@@ -165,7 +163,7 @@ answerBoxes.forEach((answerBox) => {
     setTimeout(() => {
       if (currentQuestion?.choice3 != "") {
         answerBoxes[currentQuestion?.answer! - 1].classList.remove(
-          "bg-yellow-400"
+          "bg-[#FFC857]"
         );
       }
 

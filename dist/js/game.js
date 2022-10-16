@@ -102,13 +102,13 @@ answerBoxes.forEach((answerBox) => {
             if ((currentQuestion === null || currentQuestion === void 0 ? void 0 : currentQuestion.choice3) != "") {
                 console.log(currentQuestion);
                 console.log((currentQuestion === null || currentQuestion === void 0 ? void 0 : currentQuestion.answer) - 1);
-                answerBoxes[(currentQuestion === null || currentQuestion === void 0 ? void 0 : currentQuestion.answer) - 1].classList.add("bg-yellow-400");
+                answerBoxes[(currentQuestion === null || currentQuestion === void 0 ? void 0 : currentQuestion.answer) - 1].classList.add("bg-[#FFC857]");
             }
         }
         button.target.classList.add(classToApply);
         setTimeout(() => {
             if ((currentQuestion === null || currentQuestion === void 0 ? void 0 : currentQuestion.choice3) != "") {
-                answerBoxes[(currentQuestion === null || currentQuestion === void 0 ? void 0 : currentQuestion.answer) - 1].classList.remove("bg-yellow-400");
+                answerBoxes[(currentQuestion === null || currentQuestion === void 0 ? void 0 : currentQuestion.answer) - 1].classList.remove("bg-[#FFC857]");
             }
             button.target.classList.remove(classToApply);
             getNewQuestion();
