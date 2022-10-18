@@ -22,7 +22,7 @@ const saveScore = (event) => {
         }
         highscores.splice(5);
         localStorage.setItem("highscores", JSON.stringify(highscores));
-        window.location.assign("../../index.html");
+        window.location.assign("../../QuizUpp/index.html");
     }
 };
 const isRequired = (value) => (value === "" ? false : true);

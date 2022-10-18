@@ -1,7 +1,5 @@
 const username = document.getElementById("username") as HTMLInputElement | null;
-const finalScoreBox = document.getElementById(
-  "finalScoreBox"
-) as HTMLDivElement | null;
+const finalScoreBox = document.getElementById("finalScoreBox") as HTMLDivElement | null;
 const errorBox = document.getElementById("errorBox") as HTMLDivElement | null;
 
 type Score = {
@@ -9,8 +7,7 @@ type Score = {
   name: string;
 };
 
-const highscores: Score[] =
-  JSON.parse(localStorage.getItem("highscores") || "[]") || [];
+const highscores: Score[] = JSON.parse(localStorage.getItem("highscores") || "[]") || [];
 
 let savedScore = localStorage.getItem("savedScore");
 if (finalScoreBox != null && savedScore != null) {
@@ -34,7 +31,7 @@ const saveScore = (event: Event) => {
     }
     highscores.splice(5);
     localStorage.setItem("highscores", JSON.stringify(highscores));
-    window.location.assign("https://mccowsky.github.io/QuizUpp/");
+    window.location.assign("../../QuizUpp/index.html");
   }
 };
 
